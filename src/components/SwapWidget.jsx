@@ -51,10 +51,7 @@ const SwapWidget = () => {
               className="bg-transparent text-white text-3xl font-serif font-bold w-full outline-none placeholder-slate-700"
             />
             <div className="flex items-center gap-2 bg-gradient-to-r from-slate-900 to-black border border-gold-500/40 rounded-full py-1.5 px-3 ml-2 shrink-0 shadow-[0_0_10px_rgba(212,175,55,0.2)]">
-              <div className="w-6 h-6 rounded-full bg-black flex items-center justify-center p-1">
-                {/* Simple SOL logo representation */}
-                <div className="w-full h-full bg-gradient-to-tr from-green-400 to-purple-500 rounded-full"></div>
-              </div>
+              <img src="https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png" alt="SOL" className="w-6 h-6 rounded-full shadow-sm" />
               <span className="text-gold-100 font-bold text-sm tracking-wider">SOL</span>
             </div>
           </div>
