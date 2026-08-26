@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowDownUp, Settings, Wallet } from 'lucide-react';
 
 const SwapWidget = () => {
   const [solAmount, setSolAmount] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
   
   // Rough estimate, in reality this would be fetched from an oracle or the Raydium router
   const rtxPerSol = 150000; 
@@ -11,8 +12,10 @@ const SwapWidget = () => {
   const rtxAmount = solAmount ? (parseFloat(solAmount) * rtxPerSol).toLocaleString(undefined, { maximumFractionDigits: 2 }) : '';
 
   const handleSwapClick = () => {
-    // Redirect to Raydium swap with pre-filled parameters
-    window.open('https://raydium.io/swap/?inputCurrency=sol&outputCurrency=GydeH85JRxmYifWFbHV8Fp4FQRnN5AFYXKCmXMN8rvRN', '_blank');
+    setShowPopup(true);
+    setTimeout(() => {
+      setShowPopup(false);
+    }, 3000);
   };
 
   return (
@@ -102,8 +105,23 @@ const SwapWidget = () => {
         className="w-full bg-gradient-to-r from-gold-600 to-gold-400 text-slate-950 font-bold text-lg py-4 rounded-xl flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all hover:shadow-[0_0_30px_rgba(212,175,55,0.6)]"
       >
         <Wallet className="w-5 h-5" />
-        SWAP ON RAYDIUM
+        SWAP (COMING SOON)
       </motion.button>
+
+      {/* Coming Soon Popup Overlay */}
+      <AnimatePresence>
+        {showPopup && (
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="absolute bottom-24 left-1/2 -translate-x-1/2 z-[100] bg-slate-950 border border-gold-500 text-gold-400 px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 font-medium whitespace-nowrap"
+          >
+            <Wallet className="w-5 h-5" />
+            RottyX swap coming soon
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };
