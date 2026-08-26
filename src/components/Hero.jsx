@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import SwapWidget from './SwapWidget';
 
 const Hero = () => {
   return (
@@ -11,7 +12,8 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-slate-950/90 z-10" />
       </div>
 
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between gap-12 w-full pt-10">
+        <div className="flex-1 text-center lg:text-left flex flex-col items-center lg:items-start">
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -28,7 +30,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-4 text-xl text-slate-300 max-w-2xl mx-auto mb-10 font-sans font-light leading-relaxed"
+          className="mt-4 text-xl text-slate-300 max-w-2xl mb-10 font-sans font-light leading-relaxed"
         >
           The Ancient Legion of decentralized finance. Build your legacy on the blockchain, command your assets, and conquer the new digital frontier.
         </motion.p>
@@ -56,6 +58,12 @@ const Hero = () => {
             EXPLORE THE MARKET
           </motion.button>
         </motion.div>
+        </div>
+
+        {/* Swap Widget Column */}
+        <div className="flex-1 w-full flex justify-center lg:justify-end mt-12 lg:mt-0">
+          <SwapWidget />
+        </div>
       </div>
       
       {/* Decorative Bottom Edge */}
