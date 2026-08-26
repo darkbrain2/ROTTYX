@@ -12,8 +12,8 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-slate-950/90 z-10" />
       </div>
 
-      <div className="relative z-20 w-full max-w-[100rem] mx-auto px-4 sm:px-6 lg:px-12 xl:px-24 flex flex-col lg:flex-row items-center justify-between gap-12 pt-10">
-        <div className="flex-1 text-center lg:text-left flex flex-col items-center lg:items-start lg:pl-10">
+      <div className="relative z-20 w-full px-4 lg:pl-16 lg:pr-8 xl:pl-32 xl:pr-12 flex flex-col lg:flex-row items-center justify-between gap-12 pt-10">
+        <div className="flex-1 text-center lg:text-left flex flex-col items-center lg:items-start lg:max-w-2xl">
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
