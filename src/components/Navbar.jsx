@@ -1,20 +1,16 @@
 import React, { useState } from 'react';
 import { Wallet, Menu, X, User } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
-  const [isConnected, setIsConnected] = useState(false);
-  const [walletAddress, setWalletAddress] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleConnectWallet = () => {
-    if (!isConnected) {
-      setIsConnected(true);
-      setWalletAddress('0x7F...3B9A');
-    } else {
-      setIsConnected(false);
-      setWalletAddress('');
-    }
+    setShowPopup(true);
+    setTimeout(() => {
+      setShowPopup(false);
+    }, 3000);
   };
 
   const navLinks = ['Home', 'Marketplace', 'Staking', 'Roadmap', 'Governance', 'Whitepaper'];
@@ -49,26 +45,15 @@ const Navbar = () => {
 
           {/* Connect Wallet & User */}
           <div className="hidden md:flex items-center gap-4">
-            {isConnected ? (
-              <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2 bg-slate-50 border border-gold-300 rounded-full px-4 py-2">
-                  <span className="text-gold-600 text-sm font-bold">{walletAddress}</span>
-                </div>
-                <div className="w-10 h-10 rounded-full bg-slate-50 border border-gold-400 flex items-center justify-center cursor-pointer hover:bg-slate-100 transition-colors">
-                  <User className="w-5 h-5 text-gold-600" />
-                </div>
-              </div>
-            ) : (
-              <motion.button 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={handleConnectWallet}
-                className="bg-gradient-to-r from-gold-600 to-gold-400 text-slate-950 font-bold px-6 py-2.5 rounded-full flex items-center gap-2 shadow-[0_0_15px_rgba(212,175,55,0.4)] hover:shadow-[0_0_25px_rgba(212,175,55,0.6)] transition-all"
-              >
-                <Wallet className="w-4 h-4" />
-                CONNECT WALLET
-              </motion.button>
-            )}
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handleConnectWallet}
+              className="bg-gradient-to-r from-gold-600 to-gold-400 text-slate-950 font-bold px-6 py-2.5 rounded-full flex items-center gap-2 shadow-[0_0_15px_rgba(212,175,55,0.4)] hover:shadow-[0_0_25px_rgba(212,175,55,0.6)] transition-all"
+            >
+              <Wallet className="w-4 h-4" />
+              CONNECT WALLET
+            </motion.button>
           </div>
 
           {/* Mobile menu button */}
@@ -103,12 +88,27 @@ const Navbar = () => {
                 className="w-full bg-gradient-to-r from-gold-600 to-gold-400 text-slate-950 font-bold px-6 py-3 rounded-md flex items-center justify-center gap-2"
               >
                 <Wallet className="w-5 h-5" />
-                {isConnected ? walletAddress : 'CONNECT WALLET'}
+                CONNECT WALLET
               </button>
             </div>
           </div>
         </div>
       )}
+
+      {/* Coming Soon Popup Overlay */}
+      <AnimatePresence>
+        {showPopup && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20, x: '-50%' }}
+            animate={{ opacity: 1, y: 20, x: '-50%' }}
+            exit={{ opacity: 0, y: -20, x: '-50%' }}
+            className="fixed top-20 left-1/2 z-[100] bg-slate-950 border border-gold-500 text-gold-400 px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 font-medium whitespace-nowrap"
+          >
+            <Wallet className="w-5 h-5" />
+            RottyX swap coming soon
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
