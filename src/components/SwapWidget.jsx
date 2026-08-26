@@ -47,9 +47,14 @@ const SwapWidget = () => {
 
   return (
     <motion.div 
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5, delay: 0.8 }}
+      initial={{ opacity: 0, y: -150 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ 
+        duration: 0.8, 
+        delay: 0.5,
+        type: "spring",
+        bounce: 0.4
+      }}
       className="w-full max-w-md lg:ml-auto lg:mr-0 bg-transparent backdrop-blur-sm border-2 border-gold-500/50 rounded-3xl p-6 shadow-[0_0_50px_rgba(212,175,55,0.15)] relative overflow-hidden"
     >
       {/* Decorative Glow */}
