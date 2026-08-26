@@ -3,13 +3,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowDownUp, Settings, Wallet } from 'lucide-react';
 
 const SwapWidget = () => {
-  const [solAmount, setSolAmount] = useState('');
+  const [inputValue, setInputValue] = useState('');
+  const [isReversed, setIsReversed] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   
   // Rough estimate, in reality this would be fetched from an oracle or the Raydium router
   const rtxPerSol = 150000; 
   
-  const rtxAmount = solAmount ? (parseFloat(solAmount) * rtxPerSol).toLocaleString(undefined, { maximumFractionDigits: 2 }) : '';
+  const outputValue = inputValue 
+    ? (isReversed ? (parseFloat(inputValue) / rtxPerSol) : (parseFloat(inputValue) * rtxPerSol)).toLocaleString(undefined, { maximumFractionDigits: isReversed ? 6 : 2 }) 
+    : '';
 
   const handleSwapClick = () => {
     setShowPopup(true);
@@ -17,6 +20,30 @@ const SwapWidget = () => {
       setShowPopup(false);
     }, 3000);
   };
+
+  const handleReverse = () => {
+    setIsReversed(!isReversed);
+    setInputValue(''); // Reset input on swap to avoid confusion, or keep it. We'll reset it to keep it clean.
+  };
+
+  const solTokenInfo = {
+    symbol: 'SOL',
+    labelPay: 'Tribute (Pay)',
+    labelReceive: 'Spoils (Receive)',
+    balance: 'Treasury: 0.00 SOL',
+    icon: <img src="https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png" alt="SOL" className="w-6 h-6 rounded-full shadow-sm" />
+  };
+
+  const rtxTokenInfo = {
+    symbol: 'RTX',
+    labelPay: 'Tribute (Pay)',
+    labelReceive: 'Spoils (Receive)',
+    balance: 'Treasury: 0.00 RTX',
+    icon: <img src="/logo.png" alt="RTX" className="w-6 h-6 rounded-full" />
+  };
+
+  const topToken = isReversed ? rtxTokenInfo : solTokenInfo;
+  const bottomToken = isReversed ? solTokenInfo : rtxTokenInfo;
 
   return (
     <motion.div 
@@ -36,51 +63,54 @@ const SwapWidget = () => {
       </div>
 
       <div className="space-y-3 relative z-10">
-        {/* Input: SOL */}
+        {/* Input Box (Top) */}
         <div className="bg-black/40 backdrop-blur-md border border-gold-500/30 rounded-2xl p-5 transition-all hover:border-gold-500/60 focus-within:border-gold-400 shadow-inner">
           <div className="flex justify-between mb-3">
-            <span className="text-gold-200/70 font-serif text-sm tracking-widest uppercase">Tribute (Pay)</span>
-            <span className="text-gold-400/60 text-xs font-serif tracking-wider uppercase">Treasury: 0.00 SOL</span>
+            <span className="text-gold-200/70 font-serif text-sm tracking-widest uppercase">{topToken.labelPay}</span>
+            <span className="text-gold-400/60 text-xs font-serif tracking-wider uppercase">{topToken.balance}</span>
           </div>
           <div className="flex items-center justify-between">
             <input 
               type="number"
-              value={solAmount}
-              onChange={(e) => setSolAmount(e.target.value)}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
               placeholder="0.0"
               className="bg-transparent text-white text-3xl font-serif font-bold w-full outline-none placeholder-slate-700"
             />
             <div className="flex items-center gap-2 bg-gradient-to-r from-slate-900 to-black border border-gold-500/40 rounded-full py-1.5 px-3 ml-2 shrink-0 shadow-[0_0_10px_rgba(212,175,55,0.2)]">
-              <img src="https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png" alt="SOL" className="w-6 h-6 rounded-full shadow-sm" />
-              <span className="text-gold-100 font-bold text-sm tracking-wider">SOL</span>
+              {topToken.icon}
+              <span className="text-gold-100 font-bold text-sm tracking-wider">{topToken.symbol}</span>
             </div>
           </div>
         </div>
 
         {/* Swap Arrow */}
         <div className="absolute left-1/2 -translate-x-1/2 top-[47%] -translate-y-1/2 z-20">
-          <button className="bg-black border-2 border-gold-500 text-gold-400 p-2.5 rounded-full hover:bg-gold-950 transition-all shadow-[0_0_15px_rgba(212,175,55,0.5)] hover:scale-110">
+          <button 
+            onClick={handleReverse}
+            className="bg-black border-2 border-gold-500 text-gold-400 p-2.5 rounded-full hover:bg-gold-950 transition-all shadow-[0_0_15px_rgba(212,175,55,0.5)] hover:scale-110 active:scale-95"
+          >
             <ArrowDownUp className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Output: RTX */}
+        {/* Output Box (Bottom) */}
         <div className="bg-black/40 backdrop-blur-md border border-gold-500/30 rounded-2xl p-5 transition-all shadow-inner">
           <div className="flex justify-between mb-3">
-            <span className="text-gold-200/70 font-serif text-sm tracking-widest uppercase">Spoils (Receive)</span>
-            <span className="text-gold-400/60 text-xs font-serif tracking-wider uppercase">Treasury: 0.00 RTX</span>
+            <span className="text-gold-200/70 font-serif text-sm tracking-widest uppercase">{bottomToken.labelReceive}</span>
+            <span className="text-gold-400/60 text-xs font-serif tracking-wider uppercase">{bottomToken.balance}</span>
           </div>
           <div className="flex items-center justify-between">
             <input 
               type="text"
-              value={rtxAmount}
+              value={outputValue}
               readOnly
               placeholder="0.0"
               className="bg-transparent text-white text-3xl font-serif font-bold w-full outline-none placeholder-slate-700"
             />
             <div className="flex items-center gap-2 bg-gradient-to-r from-slate-900 to-black border border-gold-500/40 rounded-full py-1.5 px-3 ml-2 shrink-0 shadow-[0_0_10px_rgba(212,175,55,0.2)]">
-              <img src="/logo.png" alt="RTX" className="w-6 h-6 rounded-full" />
-              <span className="text-gold-100 font-bold text-sm tracking-wider">RTX</span>
+              {bottomToken.icon}
+              <span className="text-gold-100 font-bold text-sm tracking-wider">{bottomToken.symbol}</span>
             </div>
           </div>
         </div>
