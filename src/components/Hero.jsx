@@ -61,7 +61,7 @@ const Hero = () => {
         </div>
 
         {/* Swap Widget Column */}
-        <div className="flex-1 w-full flex justify-center lg:justify-end mt-12 lg:mt-0 lg:-translate-y-12 xl:-translate-y-16">
+        <div className="flex-1 w-full flex justify-center lg:justify-end mt-4 sm:mt-6 lg:mt-0 -translate-y-4 lg:translate-y-0">
           <SwapWidget />
         </div>
       </div>
