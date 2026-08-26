@@ -23,7 +23,7 @@ const SwapWidget = () => {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, delay: 0.8 }}
-      className="w-full max-w-md lg:ml-auto lg:mr-4 xl:mr-12 bg-transparent backdrop-blur-sm border-2 border-gold-500/50 rounded-3xl p-6 shadow-[0_0_50px_rgba(212,175,55,0.15)] relative overflow-hidden"
+      className="w-full max-w-md lg:ml-auto lg:mr-0 bg-transparent backdrop-blur-sm border-2 border-gold-500/50 rounded-3xl p-6 shadow-[0_0_50px_rgba(212,175,55,0.15)] relative overflow-hidden"
     >
       {/* Decorative Glow */}
       <div className="absolute top-0 right-0 w-32 h-32 bg-gold-500/20 rounded-full blur-3xl pointer-events-none"></div>
