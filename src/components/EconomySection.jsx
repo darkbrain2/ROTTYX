@@ -116,33 +116,33 @@ const EconomySection = () => {
           {/* Live Data Widget Card */}
           <motion.div
             whileHover={{ y: -5 }}
-            className="bg-slate-900 border border-gold-600/40 rounded-xl p-8 shadow-xl relative overflow-hidden flex flex-col h-full"
+            className="bg-gradient-to-br from-gold-600 to-gold-400 border border-gold-300 rounded-xl p-8 shadow-[0_0_25px_rgba(212,175,55,0.3)] relative overflow-hidden flex flex-col h-full"
           >
-            {/* Dark background glow */}
-            <div className="absolute -top-10 -right-10 w-32 h-32 bg-gold-600/20 rounded-full blur-3xl"></div>
+            {/* White background glow */}
+            <div className="absolute -top-10 -right-10 w-48 h-48 bg-white/30 rounded-full blur-3xl"></div>
             
             <div className="relative z-10">
               <div className="flex justify-between items-start mb-6">
-                <TrendingUp className="w-8 h-8 text-green-400" />
+                <TrendingUp className="w-8 h-8 text-slate-950 drop-shadow-sm" />
                 <div className="flex items-center gap-3">
                   <button 
                     onClick={fetchPrice}
                     disabled={isRefreshing}
-                    className="p-1.5 rounded-full bg-green-400/10 text-green-400 hover:bg-green-400/20 hover:text-green-300 transition-colors border border-green-400/20 disabled:opacity-50"
+                    className="p-1.5 rounded-full bg-white/20 text-slate-950 hover:bg-white/40 transition-colors border border-white/30 disabled:opacity-50 backdrop-blur-sm shadow-sm"
                     title="Refresh Live Data"
                   >
                     <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} />
                   </button>
-                  <span className="px-3 py-1 bg-green-400/10 text-green-400 border border-green-400/20 rounded-full text-xs font-bold">
+                  <span className="px-3 py-1 bg-slate-950 text-gold-400 border border-slate-800 shadow-md rounded-full text-xs font-bold tracking-wider">
                     LIVE
                   </span>
                 </div>
               </div>
               
-              <h3 className="text-slate-400 font-sans text-sm tracking-widest uppercase mb-1">RTX Token Price</h3>
+              <h3 className="text-slate-900/80 font-sans text-sm font-bold tracking-widest uppercase mb-1">RTX Token Price</h3>
               <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-8">
-                <span className="text-3xl sm:text-4xl font-serif font-bold text-white tracking-tight break-all">${marketData.price}</span>
-                <span className="text-green-400 font-bold text-sm sm:text-base whitespace-nowrap">{marketData.change}</span>
+                <span className="text-3xl sm:text-4xl font-serif font-bold text-slate-950 tracking-tight break-all drop-shadow-sm">${marketData.price}</span>
+                <span className="text-emerald-800 bg-emerald-100/60 px-2 py-0.5 rounded-full font-bold text-sm sm:text-base whitespace-nowrap shadow-sm border border-emerald-200/50">{marketData.change}</span>
               </div>
 
               {/* Animated Live Sparkline */}
@@ -150,11 +150,11 @@ const EconomySection = () => {
                 <svg viewBox="0 0 100 30" className="w-full h-full overflow-visible" preserveAspectRatio="none">
                   <defs>
                     <linearGradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
-                      <stop offset="0%" stopColor="#4ade80" stopOpacity="0.4" />
-                      <stop offset="100%" stopColor="#4ade80" stopOpacity="0" />
+                      <stop offset="0%" stopColor="#020617" stopOpacity="0.2" />
+                      <stop offset="100%" stopColor="#020617" stopOpacity="0" />
                     </linearGradient>
                     <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                      <feGaussianBlur stdDeviation="2" result="blur" />
+                      <feGaussianBlur stdDeviation="1.5" result="blur" />
                       <feComposite in="SourceGraphic" in2="blur" operator="over" />
                     </filter>
                   </defs>
@@ -171,7 +171,7 @@ const EconomySection = () => {
                   {/* Animated Line drawing left to right */}
                   <motion.path 
                     d="M0,25 C10,25 15,10 25,15 C35,20 40,5 50,10 C60,15 65,5 75,10 C85,15 90,0 100,0" 
-                    className="stroke-green-400 stroke-[1.5] fill-none"
+                    className="stroke-slate-950 stroke-[1.5] fill-none"
                     filter="url(#glow)"
                     initial={{ pathLength: 0 }}
                     animate={{ pathLength: 1 }}
@@ -181,12 +181,12 @@ const EconomySection = () => {
                   {/* Pulsing Dot at the leading edge */}
                   <motion.circle
                     cx="100" cy="0" r="1.5"
-                    className="fill-white"
+                    className="fill-slate-950"
                     filter="url(#glow)"
                     initial={{ scale: 0, opacity: 0 }}
                     animate={{ 
-                      scale: [1, 2, 1], 
-                      opacity: [1, 0.4, 1] 
+                      scale: [1, 1.5, 1], 
+                      opacity: [1, 0.7, 1] 
                     }}
                     transition={{ 
                       duration: 2, 
@@ -198,9 +198,9 @@ const EconomySection = () => {
                 </svg>
               </div>
 
-              <div className="pt-4 border-t border-slate-700/50 flex justify-between items-center">
-                <span className="text-slate-400 text-sm">Market Cap</span>
-                <span className="text-white font-bold">{marketData.volume}</span>
+              <div className="pt-4 border-t border-slate-950/20 flex justify-between items-center">
+                <span className="text-slate-900/80 font-bold text-sm uppercase tracking-wider">Market Cap</span>
+                <span className="text-slate-950 font-bold drop-shadow-sm">{marketData.volume}</span>
               </div>
             </div>
           </motion.div>
