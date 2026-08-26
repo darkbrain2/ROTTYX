@@ -29,7 +29,7 @@ const SwapWidget = () => {
       <div className="absolute top-0 right-0 w-32 h-32 bg-gold-500/20 rounded-full blur-3xl pointer-events-none"></div>
 
       <div className="flex justify-between items-center mb-8 relative z-10 border-b border-gold-500/30 pb-4">
-        <h3 className="text-gold-400 font-serif font-bold text-xl tracking-widest uppercase shadow-sm">Imperial Exchange</h3>
+        <h3 className="text-gold-400 font-serif font-bold text-xl tracking-widest uppercase shadow-sm">RottyX Exchange</h3>
         <button className="p-2 rounded-full transition-colors text-gold-400/70 hover:text-gold-300 hover:bg-gold-500/10 border border-gold-500/20">
           <Settings className="w-4 h-4" />
         </button>
